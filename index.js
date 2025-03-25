@@ -29,6 +29,7 @@ async function run() {
     console.log("Connected to MongoDB successfully!");
 
     const blogsCollection = client.db('JobPortal').collection('blogscontent');
+    const banckdetails = client.db('JobPortal').collection('banckdetails');
 
     // 🔹 Add a new blog post
     app.post("/blogs", async (req, res) => {
@@ -80,6 +81,18 @@ async function run() {
       const result = await blogsCollection.deleteOne(query);
       res.send(result);
     });
+
+
+// submit account information 
+app.post('/accountinf',async(req,res)=>{
+   const accountinf = req.body;
+      console.log(accountinf);
+      const result = await banckdetails.insertOne(accountinf);
+      res.send(result);
+})
+
+
+
 
     // 🔹 Server status check route
     app.get('/', async (req, res) => {
